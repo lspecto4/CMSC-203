@@ -1,0 +1,43 @@
+import java.util.Scanner;
+
+public class MovieDriverTask2 {
+	
+	public static void main(String[] args) {
+		
+		Scanner keyboard = new Scanner(System.in);
+		Movie movie = new Movie();
+		String choice;
+		char ch;
+		
+		System.out.println("Please enter the title of a movie: ");
+		String userMovie = keyboard.nextLine();
+		movie.setTitle(userMovie);
+		System.out.println("Please enter the movie rating: ");
+		String movieRating = keyboard.nextLine();
+		movie.setRating(movieRating);
+		System.out.println("Please enter the number of tickets sold for this movie: ");
+		int ticketsSold = keyboard.nextInt();
+		keyboard.nextLine(); // consume whitespace
+		movie.setSoldTickets(ticketsSold);
+		System.out.println(movie.toString());
+		System.out.println("\nDo you want to enter another? (y or n)");
+		choice = keyboard.nextLine();
+		ch = choice.charAt(0);
+		
+		while (ch == 'Y' || ch == 'y') {
+			System.out.println("Please enter the title of a movie: ");
+			movie.setTitle(keyboard.nextLine());
+			System.out.println("Please enter the movie rating: ");
+			movie.setRating(keyboard.nextLine());
+			System.out.println("Please enter the number of tickets sold for this movie: ");
+			movie.setSoldTickets(keyboard.nextInt());
+			keyboard.nextLine(); // consume whitespace
+			System.out.println(movie.toString());
+			System.out.println("\nDo you want to enter another? (y or n)");
+			choice = keyboard.nextLine();
+			ch = choice.charAt(0);
+		}
+		
+		System.out.println("Goodbye");
+	}
+}
