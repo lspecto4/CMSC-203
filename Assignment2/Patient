@@ -1,0 +1,322 @@
+/*
+ * Class: CMSC203 
+ * Instructor: Grinberg
+ * Description: A program that creates and displays information about a patient and their procedures.
+ * Due: 2/23/2026
+ * Platform/compiler: Eclipse
+ * I pledge that I have completed the programming 
+ * assignment independently. I have not copied the code 
+ * from a student or any source. I have not given my code 
+ * to any student.
+   Print your Name here: Laurie Spector
+*/
+
+public class Patient
+{
+	private String firstName = "";
+	private String middleName = "";
+	private String lastName = "";
+	private String streetAddress = "";
+	private String city = "";
+	private String state = "";
+	private String zipCode = "";
+	private String phoneNumber = "";
+	private String emergencyContactName = "";
+	private String emergencyContactNumber = "";
+	
+	/** 
+	 * no-arg constructor
+	 */
+	
+	public Patient()
+	{
+		
+	}
+	
+	/**
+	 * Constructor that initializes patient's first, middle and last names.
+	 * @param patientFirst Patient's first name.
+	 * @param patientMiddle Patient's middle name.
+	 * @param patientLast Patient's last name.
+	 */
+	
+	public Patient(String patientFirst, String patientMiddle, String patientLast)
+	{
+		firstName = patientFirst;
+		middleName = patientMiddle;
+		lastName = patientLast;
+	}
+	
+	/**
+	 * Constructor that initializes all patient attributes.
+	 * @param patientFirst Patient's first name.
+	 * @param patientMiddle Patient's middle name.
+	 * @param patientLast Patient's last name.
+	 * @param patientAddress Patient's street address.
+	 * @param patientCity Patient's city.
+	 * @param patientState Patient's state.
+	 * @param patientZip Patient's zip code.
+	 * @param patientPhone Patient's phone number.
+	 * @param patientEmergencyName The name of the patient's emergency contact.
+	 * @param patientEmergencyNumber The phone number of the patient's emergency contact.
+	 */
+	
+	public Patient(String patientFirst, String patientMiddle, String patientLast, String patientAddress, 
+			String patientCity, String patientState, String patientZip, String patientPhone, 
+			String patientEmergencyName, String patientEmergencyNumber)
+	{
+		firstName = patientFirst;
+		middleName = patientMiddle;
+		lastName = patientLast;
+		streetAddress = patientAddress;
+		city = patientCity;
+		state = patientState;
+		zipCode = patientZip;
+		phoneNumber = patientPhone;
+		emergencyContactName = patientEmergencyName;
+		emergencyContactNumber = patientEmergencyNumber;
+	}
+	
+	/**
+	 * The method getFirstName returns the patient's first name.
+	 * @return The patient's first name.
+	 */
+	
+	public String getFirstName()
+	{
+		return firstName;
+	}
+	
+	/**
+	 * The method setFirstName changes the patient's first name.
+	 * @param patientFirst Patient's first name.
+	 */
+	
+	public void setFirstName(String patientFirst)
+	{
+		firstName = patientFirst;
+	}
+	
+	/**
+	 * The method getMiddleName returns the patient's middle name.
+	 * @return The patient's middle name.
+	 */
+	
+	public String getMiddleName()
+	{
+		return middleName;
+	}
+	
+	/**
+	 * The method setMiddleName changes the patient's middle name.
+	 * @param patientMiddle Patient's middle name.
+	 */
+	
+	public void setMiddleName(String patientMiddle)
+	{
+		middleName = patientMiddle;
+	}
+	
+	/**
+	 * The method getLastName returns the patient's last name.
+	 * @return The patient's last name.
+	 */
+	
+	public String getLastName()
+	{
+		return lastName;
+	}
+	
+	/**
+	 * The method setLastName changes the patient's last name.
+	 * @param patientLast Patient's last name.
+	 */
+	
+	public void setLastName(String patientLast)
+	{
+		lastName = patientLast;
+	}
+	
+	/**
+	 * The method getStreetAddress returns the patient's street address.
+	 * @return The patient's street address.
+	 */
+	
+	public String getStreetAddress()
+	{
+		return streetAddress;
+	}
+	
+	/**
+	 * The method setStreetAddress changes the patient's street address.
+	 * @param patientAddress Patient's street address.
+	 */
+	
+	public void setStreetAddress(String patientAddress)
+	{
+		streetAddress = patientAddress;
+	}
+	
+	/**
+	 * The method getCity returns the patient's city.
+	 * @return The patient's city.
+	 */
+	
+	public String getCity()
+	{
+		return city;
+	}
+	
+	/**
+	 * The method setCity changes the patient's city.
+	 * @param patientCity Patient's city.
+	 */
+	
+	public void setCity(String patientCity)
+	{
+		city = patientCity;
+	}
+	
+	/**
+	 * The method getState returns the patient's state.
+	 * @return The patient's state.
+	 */
+	
+	public String getState()
+	{
+		return state;
+	}
+	
+	/**
+	 * The method setState changes the patient's state.
+	 * @param patientState Patient's state.
+	 */
+	
+	public void setState(String patientState)
+	{
+		state = patientState;
+	}
+	
+	/**
+	 * The method getZipCode returns the patient's zip code.
+	 * @return The patient's zip code.
+	 */
+	
+	public String getZipCode()
+	{
+		return zipCode;
+	}
+	
+	/**
+	 * The method setZipCode changes the patient's zip code.
+	 * @param patientZip Patient's zip code.
+	 */
+	
+	public void setzipCode(String patientZip)
+	{
+		zipCode = patientZip;
+	}
+	
+	/**
+	 * The method getPhoneNumber returns the patient's phone number.
+	 * @return The patient's phone number.
+	 */
+	
+	public String getPhoneNumber()
+	{
+		return phoneNumber;
+	}
+	
+	/**
+	 * The method setPhoneNumber changes the patient's phone number.
+	 * @param patientPhone Patient's phone number.
+	 */
+	
+	public void setPhoneNumber(String patientPhone)
+	{
+		phoneNumber = patientPhone;
+	}
+	
+	/**
+	 * The method getEmergencyContactName returns the name of the patient's emergency contact.
+	 * @return The name of the patient's emergency contact.
+	 */
+	
+	public String getEmergencyContactName()
+	{
+		return emergencyContactName;
+	}
+	
+	/**
+	 * The method setEmergencyContactName changes the name of the patient's emergency contact.
+	 * @param emergencyName The name of the patient's emergency contact.
+	 */
+	
+	public void setEmergencyContactName(String emergencyName)
+	{
+		emergencyContactName = emergencyName;
+	}
+	
+	/**
+	 * The method getEmergencyContactNumber returns the phone number of the patient's emergency contact.
+	 * @return The phone number of the patient's emergency contact.
+	 */
+	
+	public String getEmergencyContactNumber()
+	{
+		return emergencyContactNumber;
+	}
+	
+	/**
+	 * The method setEmergencyContactNumber changes the phone number of the patient's emergency contact.
+	 * @param emergencyNumber The phone number of the patient's emergency contact.
+	 */
+	
+	public void setEmergencyContactNumber(String emergencyNumber)
+	{
+		emergencyContactNumber = emergencyNumber;
+	}
+	
+	/**
+	 * The method buildFullName returns a string of the patient's full name.
+	 * @return The patient's full name.
+	 */
+	
+	public String buildFullName()
+	{
+		return firstName + " " + middleName + " " + lastName;
+	}
+	
+	/**
+	 * The method buildAddress returns a string of the patient's full address.
+	 * @return The patient's full address.
+	 */
+	
+	public String buildAddress()
+	{
+		return streetAddress + " " + city + ", " + state + " " + zipCode;
+	}
+	
+	/**
+	 * The method buildEmergencyContact returns a string of the patient's emergency contact name and phone number.
+	 * @return The name and phone number of the patient's emergency contact.
+	 */
+	
+	public String buildEmergencyContact()
+	{
+		return emergencyContactName + " " + emergencyContactNumber;
+	}
+	
+	/**
+	 * The method toString returns all of the patient's information.
+	 * @return All the patient's information.
+	 */
+	
+	public String toString()
+	{
+		String fullName = buildFullName();
+		String fullAddress = buildAddress();
+		String emergencyContact = buildEmergencyContact();
+		return "\nPatient Info:\n\tName: " + fullName + "\n\tAddress: " + fullAddress + "\n\tEmergency Contact: " + emergencyContact;
+	}
+}
