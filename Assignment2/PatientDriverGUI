@@ -1,0 +1,208 @@
+/*
+ * Class: CMSC203 
+ * Instructor: Grinberg
+ * Description: A program that creates and displays information about a patient and their procedures.
+ * Due: 2/23/2026
+ * Platform/compiler: Eclipse
+ * I pledge that I have completed the programming 
+ * assignment independently. I have not copied the code 
+ * from a student or any source. I have not given my code 
+ * to any student.
+   Print your Name here: Laurie Spector
+*/
+
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.scene.text.*;
+import javafx.stage.Stage;
+
+public class PatientDriverGUI extends Application {
+
+    @Override
+    public void start(Stage primaryStage) {
+
+        /* ================= LABELS ================= */
+        Label lblPatientInfo = new Label("Patient Information");
+        lblPatientInfo.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+
+        Label lblProcedures = new Label("Procedures");
+        lblProcedures.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+
+        /* ================= PATIENT FIELDS ================= */
+        TextField tfFirstName = new TextField();
+        TextField tfMiddleName = new TextField();
+        TextField tfLastName = new TextField();
+        TextField tfAddress = new TextField();
+        TextField tfCity = new TextField();
+        TextField tfState = new TextField();
+        TextField tfZip = new TextField();
+        TextField tfPhone = new TextField();
+        TextField tfEmergencyName = new TextField();
+        TextField tfEmergencyPhone = new TextField();
+
+        GridPane patientGrid = new GridPane();
+        patientGrid.setHgap(10);
+        patientGrid.setVgap(6);
+
+        patientGrid.addRow(0, new Label("First Name:"), tfFirstName);
+        patientGrid.addRow(1, new Label("Middle Name:"), tfMiddleName);
+        patientGrid.addRow(2, new Label("Last Name:"), tfLastName);
+        patientGrid.addRow(3, new Label("Address:"), tfAddress);
+        patientGrid.addRow(4, new Label("City:"), tfCity);
+        patientGrid.addRow(5, new Label("State:"), tfState);
+        patientGrid.addRow(6, new Label("ZIP:"), tfZip);
+        patientGrid.addRow(7, new Label("Phone:"), tfPhone);
+        patientGrid.addRow(8, new Label("Emergency Name:"), tfEmergencyName);
+        patientGrid.addRow(9, new Label("Emergency Phone:"), tfEmergencyPhone);
+
+        Button btnSavePatient = new Button("Save Patient");
+
+        VBox patientSection = new VBox(10, lblPatientInfo, patientGrid, btnSavePatient);
+        patientSection.setPadding(new Insets(10));
+        patientSection.setStyle("-fx-border-color: gray;");
+
+        /* ================= PROCEDURES ================= */
+        String[] procLabels = {"Name", "Date", "Practitioner", "Charge ($)"};
+        TextField[][] procFields = new TextField[3][4];
+
+        Button btnSaveProc1 = new Button("Save Procedure 1");
+        Button btnSaveProc2 = new Button("Save Procedure 2");
+        Button btnSaveProc3 = new Button("Save Procedure 3");
+
+        Button[] procButtons = {btnSaveProc1, btnSaveProc2, btnSaveProc3};
+
+        HBox proceduresRow = new HBox(15);
+        proceduresRow.setPadding(new Insets(10));
+
+        for (int i = 0; i < 3; i++) {
+            GridPane procGrid = new GridPane();
+            procGrid.setHgap(10);
+            procGrid.setVgap(6);
+
+            Label procTitle = new Label("Procedure " + (i + 1));
+            procTitle.setStyle("-fx-font-weight: bold;");
+
+            for (int j = 0; j < 4; j++) {
+                procFields[i][j] = new TextField();
+                procGrid.add(new Label(procLabels[j] + ":"), 0, j);
+                procGrid.add(procFields[i][j], 1, j);
+            }
+
+            VBox procBox = new VBox(8, procTitle, procGrid, procButtons[i]);
+            procBox.setPadding(new Insets(10));
+            procBox.setStyle("-fx-border-color: lightgray;");
+
+            proceduresRow.getChildren().add(procBox);
+        }
+
+        VBox proceduresSection = new VBox(10, lblProcedures, proceduresRow);
+        proceduresSection.setPadding(new Insets(10));
+        proceduresSection.setStyle("-fx-border-color: gray;");
+
+        /* ================= OUTPUT ================= */
+        TextFlow outputFlow = new TextFlow();
+        outputFlow.setPadding(new Insets(10));
+        outputFlow.setPrefHeight(250);
+        outputFlow.setStyle("-fx-background-color: white; -fx-border-color: gray;");
+
+        Button btnShowOutput = new Button("Show Output");
+        Button btnExit = new Button("Exit");
+
+        HBox bottomButtons = new HBox(10, btnShowOutput, btnExit);
+
+        /* ================= DATA ================= */
+        final Patient[] patient = {new Patient()};
+        final Procedure[] procedures = {
+                new Procedure(), new Procedure(), new Procedure()
+        };
+
+        /* ================= EVENTS ================= */
+        btnSavePatient.setOnAction(e -> {
+            patient[0] = new Patient(
+                    tfFirstName.getText(),
+                    tfMiddleName.getText(),
+                    tfLastName.getText(),
+                    tfAddress.getText(),
+                    tfCity.getText(),
+                    tfState.getText(),
+                    tfZip.getText(),
+                    tfPhone.getText(),
+                    tfEmergencyName.getText(),
+                    tfEmergencyPhone.getText()
+            );
+            showAlert("Patient information saved.");
+        });
+
+        btnSaveProc1.setOnAction(e -> saveProcedure(0, procedures, procFields));
+        btnSaveProc2.setOnAction(e -> saveProcedure(1, procedures, procFields));
+        btnSaveProc3.setOnAction(e -> saveProcedure(2, procedures, procFields));
+
+        btnShowOutput.setOnAction(e -> {
+            outputFlow.getChildren().clear();
+
+            Text patientHeader = new Text("Patient Information\n");
+            patientHeader.setFont(Font.font("System", FontWeight.BOLD, 16));
+            outputFlow.getChildren().add(patientHeader);
+            outputFlow.getChildren().add(new Text(patient[0].toString() + "\n\n"));
+
+            double total = 0;
+            for (int i = 0; i < procedures.length; i++) {
+                Text procHeader = new Text("Procedure " + (i + 1) + "\n");
+                procHeader.setFont(Font.font("System", FontWeight.BOLD, 14));
+                outputFlow.getChildren().add(procHeader);
+                outputFlow.getChildren().add(new Text(procedures[i].toString() + "\n\n"));
+                total += procedures[i].getCharges();
+            }
+
+            outputFlow.getChildren().add(
+                    new Text(String.format("Total Charges: $%,.2f%n%nThis program was developed by: Laurie Spector 2/23/2026", total))
+            );
+        });
+
+        btnExit.setOnAction(e -> primaryStage.close());
+
+        /* ================= MAIN LAYOUT ================= */
+        HBox topLayout = new HBox(20, patientSection, proceduresSection);
+        VBox mainLayout = new VBox(15, topLayout, bottomButtons, outputFlow);
+        mainLayout.setPadding(new Insets(15));
+
+        ScrollPane scrollPane = new ScrollPane(mainLayout);
+        scrollPane.setFitToWidth(true);
+
+        Scene scene = new Scene(scrollPane, 1100, 700);
+        primaryStage.setTitle("Patient & Procedure Info");
+        primaryStage.setScene(scene);
+        primaryStage.setMaximized(true);
+        primaryStage.show();
+    }
+
+    /* ================= HELPERS ================= */
+    private void saveProcedure(int index, Procedure[] procedures, TextField[][] fields) {
+        procedures[index] = new Procedure(
+                fields[index][0].getText(),
+                fields[index][1].getText(),
+                fields[index][2].getText(),
+                parseDouble(fields[index][3].getText())
+        );
+        showAlert("Procedure " + (index + 1) + " saved.");
+    }
+
+    private void showAlert(String msg) {
+        new Alert(Alert.AlertType.INFORMATION, msg, ButtonType.OK).showAndWait();
+    }
+
+    private double parseDouble(String s) {
+        try {
+            return Double.parseDouble(s.trim());
+        } catch (Exception e) {
+            return 0.0;
+        }
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
