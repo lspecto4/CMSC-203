@@ -1,0 +1,148 @@
+/*
+ * Class: CMSC203 
+ * Instructor: Grinberg
+ * Description: A program that creates and displays information about a patient and their procedures.
+ * Due: 2/23/2026
+ * Platform/compiler: Eclipse
+ * I pledge that I have completed the programming 
+ * assignment independently. I have not copied the code 
+ * from a student or any source. I have not given my code 
+ * to any student.
+   Print your Name here: Laurie Spector
+*/
+
+public class Procedure 
+{
+	private String procedureName = "";
+	private String procedureDate = "";
+	private String practitionerName = "";
+	private double charges = 0.0;
+	
+	/**
+	 * no-arg constructor
+	 */
+	
+	public Procedure()
+	{
+		
+	}
+	
+	/**
+	 * Constructor that initializes procedure's name and date.
+	 * @param name The procedure's name.
+	 * @param date The procedure's date.
+	 */
+	
+	public Procedure(String name, String date)
+	{
+		procedureName = name;
+		procedureDate = date;
+	}
+	
+	/**
+	 * Constructor that initializes all procedure's attributes.
+	 * @param name The procedure's name.
+	 * @param date The procedure's date.
+	 * @param practitioner The name of the procedure's practitioner.
+	 * @param cost The procedure's charges.
+	 */
+	
+	public Procedure(String name, String date, String practitioner, double cost)
+	{
+		procedureName = name;
+		procedureDate = date;
+		practitionerName = practitioner;
+		charges = cost;
+	}
+	
+	/**
+	 * The method getProcedureName returns the name of the procedure.
+	 * @return The name of the procedure.
+	 */
+	
+	public String getProcedureName()
+	{
+		return procedureName;
+	}
+	
+	/**
+	 * The method setProcedureName changes the name of the procedure.
+	 * @param name The procedure's name.
+	 */
+	
+	public void setProcedureName(String name)
+	{
+		procedureName = name;
+	}
+	
+	/**
+	 * The method getProcedureDate returns the date of the procedure.
+	 * @return The date of the procedure.
+	 */
+	
+	public String getProcedureDate()
+	{
+		return procedureDate;
+	}
+	
+	/**
+	 * The method setProcedureDate changes the date of the procedure.
+	 * @param date The date of the procedure.
+	 */
+	
+	public void setProcedureDate(String date)
+	{
+		procedureDate = date;
+	}
+	
+	/**
+	 * The method getPractitionerName returns the name of the procedure's practitioner.
+	 * @return The name of the procedure's practitioner.
+	 */
+	
+	public String getPractitionerName()
+	{
+		return practitionerName;
+	}
+	
+	/**
+	 * The method setPractitionerName changes the name of the procedure's practitioner.
+	 * @param practitioner The name of the procedure's practitioner.
+	 */
+	
+	public void setPractitionerName(String practitioner)
+	{
+		practitionerName = practitioner;
+	}
+	
+	/**
+	 * The method getCharges returns the cost of the procedure.
+	 * @return The cost of the procedure.
+	 */
+	
+	public double getCharges()
+	{
+		return charges;
+	}
+	
+	/**
+	 * The method setCharges changes the cost of the procedure.
+	 * @param cost The cost of the procedure.
+	 */
+	
+	public void setCharges(double cost)
+	{
+		charges = cost;
+	}
+	
+	/**
+	 * The method toString returns all the procedure's information.
+	 * @return All the procedure's information.
+	 */
+	
+	public String toString()
+	{
+		return String.format("\tProcedure Name: " + procedureName + "\n\tProcedure Date: " + procedureDate
+				+ "\n\tPractitioner Name: " + practitionerName + "\n\tCharges: $%,.2f", charges);
+	}
+}
