@@ -1,0 +1,82 @@
+/*
+ * Class: CMSC203 30295
+ * Instructor: Grinberg
+ * Description: This class tests each method within the CryptoManager class to ensure all encryption and decryption ciphers work.
+ * Due: 3/9/2026
+ * Platform/compiler: Eclipse
+ * I pledge that I have completed the programming  assignment independently. 
+*  I have not copied the code from a student or any source. 
+*  I have not given my code to any student.
+*  Print your Name here: Laurie Spector
+*/
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+public class CryptoManagerTestStudent {
+	
+	@Test
+    public void testIsStringInBoundsTrue() {
+        assertTrue(CryptoManager.isStringInBounds("ABC123 _"));
+    }
+
+    @Test
+    public void testIsStringInBoundsFalse() {
+        assertFalse(CryptoManager.isStringInBounds("{}"));
+    }
+
+    @Test
+    public void testCaesarEncryption() {
+        String text = "TRIUMPHANT!";
+        int key = 5;
+        String expectedEncryption = "YWNZRUMFSY&"; 
+        String myEncryption = CryptoManager.caesarEncryption(text, key);
+        assertEquals(expectedEncryption, myEncryption);
+    }
+
+    @Test
+    public void testCaesarDecryption() {
+        String text = "R)URTN)Y388UN1) !\"=";
+        int key = 9;
+        String expectedDecryption = "I LIKE PUZZLES 123*";
+        String myDecryption = CryptoManager.caesarDecryption(text, key);
+        assertEquals(expectedDecryption, myDecryption);
+    }
+    
+    @Test
+    public void testVigenereEncryption() {
+        String text = "[OBJECT-ORIENTED]?";
+        String key = "CMSC203";
+        String expectedEncryption = "]0TL62,/09K6#,GPP[";
+        String myEncryption = CryptoManager.vigenereEncryption(text, key);
+        assertEquals(expectedEncryption, myEncryption);
+    }
+    
+    @Test
+    public void testVigenereDecryption() {
+        String text = "E)T;8),$?\"[+#%.[N8I&,";
+        String key = "*%$ 4";
+        String expectedDecryption = "WE'RE_HAVING_FUN @ MC";
+        String myDecryption = CryptoManager.vigenereDecryption(text, key);
+        assertEquals(expectedDecryption, myDecryption);
+    }
+
+    @Test
+    public void testPlayfairEncryption() {
+        String text = "THE TREASURE IS BURIED IN THE CHAPEL";
+        String key = "MC2026";
+        String expectedEncryption = "QKI5USJMTNNI(RR!DTZRLM(RR5QKI50F2SFE";
+        String myEncryption = CryptoManager.playfairEncryption(text, key);
+        assertEquals(expectedEncryption, myEncryption);
+    }
+    
+    @Test
+    public void testPlayfairDecryption() {
+        String text = "U5S.US2! (G]W>";
+        String key = ".?1_+";
+        String expectedDecryption = "W3LC0M3 2 J@V@";
+        String myDecryption = CryptoManager.playfairDecryption(text, key);
+        assertEquals(expectedDecryption, myDecryption);
+    }
+	
+}
