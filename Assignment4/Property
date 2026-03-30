@@ -1,0 +1,127 @@
+/*
+ * Class: CMSC203 30295
+ * Instructor: Grinberg
+ * Description: Property Management application that manages multiple properties owned or managed by a company.
+ * Due: 3/30/2026
+ * Platform/compiler: Eclipse
+ * I pledge that I have completed the programming 
+ * assignment independently. I have not copied the code 
+ * from a student or any source. I have not given my code 
+ * to any student.
+   Print your Name here: Laurie Spector
+*/
+
+public class Property {
+
+	private String propertyName;
+	private String city;
+	private double rentAmount;
+	private String owner;
+	
+	/** 
+	 * Default constructor
+	 */
+	public Property() {
+		propertyName = "";
+		city = "";
+		rentAmount = 0.0;
+		owner = "";
+	}
+	
+	/**
+	 * Parameterized constructor
+	 * @param propertyName Property name
+	 */
+	public Property(String propertyName, String city, double rentAmount, String owner) {
+		this.propertyName = propertyName;
+		this.city = city;
+		this.rentAmount = rentAmount;
+		this.owner = owner;
+	}
+	
+	/**
+	 * Copy constructor
+	 */
+	public Property(Property p) {
+		this.propertyName = p.propertyName;
+		this.city = p.city;
+		this.rentAmount = p.rentAmount;
+		this.owner = p.owner;
+	}
+	
+	/**
+	 * Property name getter method
+	 * @return Property name
+	 */
+	public String getPropertyName() {
+		return propertyName;
+	}
+	
+	/**
+	 * Property name setter method
+	 * @param propertyName Property name
+	 */
+	public void setPropertyName(String propertyName) {
+		this.propertyName = propertyName;
+	}
+	
+	/**
+	 * City getter method
+	 * @return City 
+	 */
+	public String getCity() {
+		return city;
+	}
+	
+	/**
+	 * City setter method
+	 * @param city City
+	 */
+	public void setCity(String city) {
+		this.city = city;
+	}
+	
+	/**
+	 * Rent amount getter method
+	 * @return Rent amount
+	 */
+	public double getRentAmount() {
+		return rentAmount;
+	}
+	
+	/**
+	 * Rent amount setter method
+	 * @param rentAmount Rent amount
+	 */
+	public void setRentAmount(double rentAmount) {
+		this.rentAmount = rentAmount;
+	}
+	
+	/**
+	 * Owner getter method
+	 * @return Owner
+	 */
+	public String getOwner() {
+		return owner;
+	}
+	
+	/**
+	 * Owner setter method
+	 * @param owner Owner
+	 */
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
+	
+	/**
+	 * toString method
+	 * @return State of the Property
+	 */
+	public String toString() {
+		String str = String.format("Property name: %s\nCity: %s\nRent amount: $%.2f\nOwner: %s", propertyName, city, rentAmount, owner);
+		return str;
+	}
+	
+	
+	
+}
