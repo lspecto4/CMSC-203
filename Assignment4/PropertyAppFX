@@ -1,0 +1,147 @@
+/*
+ * Class: CMSC203 30295
+ * Instructor: Grinberg
+ * Description: Property Management application that manages multiple properties owned or managed by a company.
+ * Due: 3/30/2026
+ * Platform/compiler: Eclipse
+ * I pledge that I have completed the programming 
+ * assignment independently. I have not copied the code 
+ * from a student or any source. I have not given my code 
+ * to any student.
+   Print your Name here: Laurie Spector
+*/
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.geometry.Insets;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.event.*;
+
+public class PropertyAppFX extends Application {
+	private Label labelPropertyName, labelCity, labelRent, labelOwner;
+	private TextField tfPropertyName, tfCity, tfRent, tfOwner;
+	private HBox hbPropertyName, hbCity, hbRent, hbOwner, hbButtons;
+	private VBox root;
+	private Button buttonAddProperty, buttonShowProperties, buttonShowRent, buttonClearOutput;
+	private TextArea textarea;
+	private ManagementCompany mc;
+
+	public static void main(String[] args) {
+		launch(args);
+	}
+
+	@Override
+	public void start(Stage stage) throws Exception {
+		mc = new ManagementCompany("Spector Properties", "123-45-6789");
+		labelPropertyName = new Label("Property Name:     ");
+		tfPropertyName = new TextField();
+		hbPropertyName = new HBox(labelPropertyName, tfPropertyName);
+		labelCity = new Label("City:                       ");
+		tfCity = new TextField();
+		hbCity = new HBox(labelCity, tfCity);
+		labelRent = new Label("Rent:                      ");
+		tfRent = new TextField();
+		hbRent = new HBox(labelRent, tfRent);
+		labelOwner = new Label("Owner:                   ");
+		tfOwner = new TextField();
+		hbOwner = new HBox(labelOwner, tfOwner);
+		buttonAddProperty = new Button("Add Property");
+		buttonShowProperties = new Button("Show All Properties");
+		buttonShowRent = new Button("Show Total Rent");
+		buttonClearOutput = new Button("Clear Output");
+		hbButtons = new HBox(10, buttonAddProperty, buttonShowProperties, buttonShowRent, buttonClearOutput);
+		textarea = new TextArea();
+		textarea.setEditable(false);
+		
+		root = new VBox(15, hbPropertyName, hbCity, hbRent, hbOwner, hbButtons, textarea);
+		root.setPadding(new Insets(10));
+		
+		buttonAddProperty.setOnAction(new AddPropertyClickHandler());
+		buttonShowProperties.setOnAction(new ShowPropertiesClickHandler());
+		buttonShowRent.setOnAction(new ShowTotalRentClickHandler());
+		buttonClearOutput.setOnAction(new ClearOutputClickHandler());
+		
+		stage.setScene(new Scene(root, 600, 500));
+		stage.setTitle("Property Management");
+		stage.show();
+	}
+	
+	/*
+	 * Event handler class for Add Property button
+	 */
+	class AddPropertyClickHandler implements EventHandler<ActionEvent> {
+		@Override
+		public void handle(ActionEvent event)
+		{
+			String propertyName = tfPropertyName.getText();
+			String city = tfCity.getText();
+			String rent = tfRent.getText();
+			String owner = tfOwner.getText();
+			
+			// Make sure all fields are entered before property is added
+			if (tfPropertyName.getText().isEmpty() || tfCity.getText().isEmpty() || tfRent.getText().isEmpty() || tfOwner.getText().isEmpty()) {
+				textarea.appendText("Please complete all text fields before adding property.\n");
+				return;
+			}
+			try {
+				double rentAmount = Double.parseDouble(rent);
+				Property property = new Property(propertyName, city, rentAmount, owner);
+				int index = mc.addProperty(property);
+				
+				// If property limit is reached, display error message. Otherwise, add property.
+				if (index == -1)
+					textarea.appendText("You can not add any more properties.\n");
+				else
+					textarea.appendText("Property added at index " + index + ".\n");
+				
+				// Clear all textfields after attempt to add property is made.
+				tfPropertyName.clear();
+				tfCity.clear();
+				tfRent.clear();
+				tfOwner.clear();
+			} catch (NumberFormatException e) {
+				// If a number isn't entered into the rent textfield, display an error message.
+				textarea.appendText("Please enter only the rent amount (Ex: 1200 or 1200.50). No symbols or letters allowed.\n");
+			}
+			
+		}
+	}
+	
+	/*
+	 * Event handler class for Show Properties button
+	 */
+	class ShowPropertiesClickHandler implements EventHandler<ActionEvent> {
+		@Override
+		public void handle(ActionEvent event)
+		{
+			textarea.appendText(mc.toString());
+			
+		}
+	}
+	
+	/*
+	 * Event handler class for Show Total Rent button
+	 */
+	class ShowTotalRentClickHandler implements EventHandler<ActionEvent> {
+		@Override
+		public void handle(ActionEvent event)
+		{
+			double rent = mc.totalRent();
+			String output = String.format("Total Rent: $%.2f", rent);
+			textarea.appendText(output + "\n");
+		}
+	}
+	
+	/*
+	 * Event handler class for Clear Output button
+	 */
+	class ClearOutputClickHandler implements EventHandler<ActionEvent> {
+		@Override
+		public void handle(ActionEvent event)
+		{
+			textarea.clear();
+		}
+	}
+}
