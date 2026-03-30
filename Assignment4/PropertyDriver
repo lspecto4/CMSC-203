@@ -1,0 +1,30 @@
+/*
+ * Class: CMSC203 30295
+ * Instructor: Grinberg
+ * Description: Property Management application that manages multiple properties owned or managed by a company.
+ * Due: 3/30/2026
+ * Platform/compiler: Eclipse
+ * I pledge that I have completed the programming 
+ * assignment independently. I have not copied the code 
+ * from a student or any source. I have not given my code 
+ * to any student.
+   Print your Name here: Laurie Spector
+*/
+
+public class PropertyDriver {
+	public static void main(String[] args) {
+		ManagementCompany company = new ManagementCompany("Spector Properties", "123-45-6789");
+		
+		Property p1 = new Property("Skylark Apartments #5", "Frederick", 1500.00, "George Washington");
+		Property p2 = new Property("872 Oriole Ln.", "Olney", 1800.00, "Abraham Lincoln");
+		Property p3 = new Property("123 Cardinal Way", "Baltimore", 2300.00, "John Adams");
+		Property p4 = new Property("Buckingham Palace", "London", 20.00, "King Charles");
+		
+		company.addProperty(p1);
+		company.addProperty(p2);
+		company.addProperty(p3);
+		company.addProperty(p4);
+		
+		System.out.println(company.toString());
+	}
+}
