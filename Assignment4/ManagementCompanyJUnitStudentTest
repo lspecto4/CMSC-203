@@ -1,0 +1,70 @@
+/*
+ * Class: CMSC203 30295
+ * Instructor: Grinberg
+ * Description: Property Management application that manages multiple properties owned or managed by a company.
+ * Due: 3/30/2026
+ * Platform/compiler: Eclipse
+ * I pledge that I have completed the programming 
+ * assignment independently. I have not copied the code 
+ * from a student or any source. I have not given my code 
+ * to any student.
+   Print your Name here: Laurie Spector
+*/
+
+import static org.junit.Assert.*;
+import org.junit.Test;
+
+public class ManagementCompanyJUnitStudentTest {
+
+    @Test
+    public void testAddPropertyAndTotalRent() {
+        ManagementCompany mc = new ManagementCompany("Spector Properties", "123-45-6789");
+        Property p1 = new Property("Garden Apts.", "Bethesda", 1700.0, "Queen Elizabeth II");
+        Property p2 = new Property("Royal Manor", "Germantown", 2300.0, "Judy Garland");
+        Property p3 = new Property("Haunted Mansion", "Rockville", 500.0, "Dracula");
+
+        int index1 = mc.addProperty(p1);
+        int index2 = mc.addProperty(p2);
+        int index3 = mc.addProperty(p3);
+
+        assertEquals(0, index1);
+        assertEquals(1, index2);
+        assertEquals(2, index3);
+        assertEquals(3, mc.getPropertyCount());
+        assertEquals(4500.0, mc.totalRent(), 0.001);
+    }
+
+    @Test
+    public void testAddPropertyWhenFull() {
+        ManagementCompany mc = new ManagementCompany("Spector Properties", "123-45-6789");
+        for (int i = 0; i < 5; i++) {
+            mc.addProperty(new Property("P" + i, "City", 1000.0 + i, "Owner"));
+        }
+        int result = mc.addProperty(new Property("Extra", "City", 2000.0, "OwnerX"));
+        assertEquals(-1, result);
+    }
+
+    @Test
+    public void testManagementCompanyCopyConstructor() {
+        ManagementCompany mc1 = new ManagementCompany("Spector Properties", "123-45-6789");
+        mc1.addProperty(new Property("Garden Apts.", "Bethesda", 1700.0, "Queen Elizabeth II"));
+        mc1.addProperty(new Property("Royal Manor", "Germantown", 2300.0, "Judy Garland"));
+
+        ManagementCompany mc2 = new ManagementCompany(mc1);
+
+        assertEquals(mc1.getName(), mc2.getName());
+        assertEquals(mc1.getTaxId(), mc2.getTaxId());
+        assertEquals(mc1.getPropertyCount(), mc2.getPropertyCount());
+        assertEquals(mc1.totalRent(), mc2.totalRent(), 0.001);
+        assertNotSame(mc1.getProperty(0), mc2.getProperty(0));  // test for a deep copy
+    }
+    
+    @Test
+    public void testManagementCompanyParameterizedConstructor() {
+    	ManagementCompany mc1 = new ManagementCompany("Spector Properties", "123-45-6789");
+    	
+    	assertEquals("Spector Properties", mc1.getName());
+    	assertEquals("123-45-6789", mc1.getTaxId());
+    	assertEquals(0, mc1.getPropertyCount());
+    }
+}
