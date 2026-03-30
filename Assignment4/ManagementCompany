@@ -1,0 +1,133 @@
+/*
+ * Class: CMSC203 30295
+ * Instructor: Grinberg
+ * Description: Property Management application that manages multiple properties owned or managed by a company.
+ * Due: 3/30/2026
+ * Platform/compiler: Eclipse
+ * I pledge that I have completed the programming 
+ * assignment independently. I have not copied the code 
+ * from a student or any source. I have not given my code 
+ * to any student.
+   Print your Name here: Laurie Spector
+*/
+
+public class ManagementCompany {
+	
+	private String name;
+	private String taxId;
+	private Property[] properties;
+	private int propertyCount;
+	private final int MAX_PROPERTIES = 5;
+	
+	
+	
+	/**
+	 * Parameterized constructor
+	 * @param name Name of the management company
+	 * @param taxId The management company's tax ID
+	 */
+	public ManagementCompany(String name, String taxId) {
+		this.name = name;
+		this.taxId = taxId;
+		properties = new Property[MAX_PROPERTIES];
+		propertyCount = 0;
+	}
+	
+	/** 
+	 * Copy constructor
+	 * @param mc ManagementCompany object to be copied
+	 */
+	public ManagementCompany(ManagementCompany mc) {
+		this.name = mc.name;
+		this.taxId = mc.taxId;
+		this.propertyCount = mc.propertyCount;
+		
+		this.properties = new Property[MAX_PROPERTIES];
+		for (int i = 0; i < mc.propertyCount; i++) {
+			this.properties[i] = new Property(mc.properties[i]);
+		}
+	}
+	
+	/**
+	 * Adds a property to properties array, returns error code if array is full
+	 * @param p Property to add
+	 * @return Index of new property, or error code if full
+	 */
+	public int addProperty(Property p) {
+		for (int i = 0; i < properties.length; i++) {
+			if (properties[i] == null) {
+				properties[i] = new Property(p);
+				propertyCount++;
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	/**
+	 * Returns sum of all property rents
+	 * @return Sum of all property rents
+	 */
+	public double totalRent() {
+		double sum = 0.0;
+		for (int i = 0; i < propertyCount; i++)
+			sum += properties[i].getRentAmount();
+		return sum;
+	}
+	
+	/**
+	 * Returns the current property count
+	 * @return Current property count
+	 */
+	public int getPropertyCount() {
+		return propertyCount;
+	}
+	
+	/**
+	 * toString method
+	 * @return A String with all object info
+	 */
+	public String toString() {
+		
+		String str = "Management Company: " + name + " (Tax ID: " + taxId + ")\nProperties:";
+		if (propertyCount == 0)
+			str += " none\n";
+		else {
+			for (int i = 0; i < propertyCount; i++) {
+				double rent = properties[i].getRentAmount();
+				String rentString = String.format("%.2f", rent);
+				str += "\n  " + i + ": " + properties[i].getPropertyName() + ", " + properties[i].getCity() + ", Rent: $" + rentString + ", Owner: " + properties[i].getOwner();
+			}
+			String totalRent = String.format("Total Rent: $%.2f\n", this.totalRent());
+			str += "\n" + totalRent;
+		}
+		return str;
+	}
+	
+	/**
+	 * Returns the name of the management company.
+	 * @return Name of the management company
+	 */
+	public String getName() {
+		return name;
+	}
+	
+	/**
+	 * Returns the tax ID
+	 * @return The tax ID
+	 */
+	public String getTaxId() {
+		return taxId;
+	}
+	
+	/**
+	 * Returns a copy of the Property object in the properties array at the specified index
+	 * @param index The properties array index
+	 * @return The Property at the specified index
+	 */
+	public Property getProperty(int index) {
+		Property p1 = new Property(properties[index]);
+		return p1;
+	}
+	
+ }
