@@ -1,0 +1,84 @@
+/*
+ * Class: CMSC203 30295
+ * Instructor: Grinberg
+ * Description: Property Management application that manages multiple properties owned or managed by a company.
+ * Due: 3/30/2026
+ * Platform/compiler: Eclipse
+ * I pledge that I have completed the programming 
+ * assignment independently. I have not copied the code 
+ * from a student or any source. I have not given my code 
+ * to any student.
+   Print your Name here: Laurie Spector
+*/
+
+import static org.junit.Assert.*;
+import org.junit.Test;
+
+public class PropertyJUnitStudentTest {
+
+    @Test
+    public void testPropertyDefaultConstructor() {
+        Property p1 = new Property();
+        
+        String propertyName = p1.getPropertyName();
+        String city = p1.getCity();
+        double rent = p1.getRentAmount();
+        String owner = p1.getOwner();
+
+        assertEquals("", propertyName);
+        assertEquals("", city);
+        assertEquals(0.0, rent, 0.001);
+        assertEquals("", owner);
+    }
+    
+    @Test
+    public void testPropertyParameterizedConstructor() {
+    	Property p1 = new Property("Hill House", "Bennington", 5000.00, "Luke Sanderson");
+    	
+    	String propertyName = p1.getPropertyName();
+    	String city = p1.getCity();
+    	double rent = p1.getRentAmount();
+    	String owner = p1.getOwner();
+    	
+    	assertEquals("Hill House", propertyName);
+    	assertEquals("Bennington", city);
+    	assertEquals(5000.00, rent, 0.001);
+    	assertEquals("Luke Sanderson", owner);
+    }
+
+    @Test
+    public void testPropertyCopyConstructor() {
+    	Property p1 = new Property("Hill House", "Bennington", 5000.00, "Luke Sanderson");
+    	Property p2 = new Property(p1);
+
+        assertEquals(p1.getPropertyName(), p2.getPropertyName());
+        assertEquals(p1.getCity(), p2.getCity());
+        assertEquals(p1.getRentAmount(), p2.getRentAmount(), 0.001);
+        assertEquals(p1.getOwner(), p2.getOwner());
+    }
+    
+    @Test
+    public void testPropertyGettersAndSetters() {
+    	Property p1 = new Property();
+    	p1.setPropertyName("Hill House");
+    	p1.setCity("Bennington");
+    	p1.setRentAmount(5000.00);
+    	p1.setOwner("Luke Sanderson");
+    	
+    	assertEquals("Hill House", p1.getPropertyName());
+    	assertEquals("Bennington", p1.getCity());
+    	assertEquals(5000.00, p1.getRentAmount(), 0.001);
+    	assertEquals("Luke Sanderson", p1.getOwner());
+    }
+    
+    @Test
+    public void testPropertyToString() {
+    	Property p1 = new Property("Hill House", "Bennington", 5000.00, "Luke Sanderson");
+    	String str = "Property name: Hill House\nCity: Bennington\nRent amount: $5000.00\nOwner: Luke Sanderson";
+    	
+    	assertEquals(str, p1.toString());
+    }
+
+}
+
+
