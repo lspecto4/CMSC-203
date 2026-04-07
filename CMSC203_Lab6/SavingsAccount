@@ -1,0 +1,43 @@
+/*
+ * Class: CMSC203 30295
+ * Instructor: Grinberg
+ * Description: Lab 6 - Inheritance
+ * Due: 4/13/2026
+ * Platform/compiler: Eclipse
+ * I pledge that I have completed the programming 
+ * assignment independently. I have not copied the code 
+ * from a student or any source. I have not given my code 
+ * to any student.
+   Print your Name here: Laurie Spector
+*/
+
+public class SavingsAccount extends BankAccount {
+	
+	private double rate = 0.025;
+	private int savingsNumber = 0;
+	private String accountNumber;
+	
+	public SavingsAccount(String name, double balance) {
+		super(name, balance);
+		accountNumber = super.getAccountNumber().concat("-" + String.valueOf(savingsNumber));
+	}
+	
+	// Copy constructor
+	public SavingsAccount(SavingsAccount other, double balance) {
+		super(other, balance);
+		savingsNumber++;
+		accountNumber = super.getAccountNumber().concat("-" + String.valueOf(savingsNumber));
+	}
+	
+	public void postInterest() {
+		double monthlyInterest = (super.getBalance() * rate) / 12;
+		super.deposit(monthlyInterest);
+	}
+	
+	@Override
+	public String getAccountNumber() {
+		return accountNumber;
+	}
+	
+	
+}
