@@ -1,0 +1,56 @@
+/*
+ * Class: CMSC203 30295
+ * Instructor: Dr. Grinberg
+ * Description: This class contains the console driver to get input/output filenames from user, show user summary of data and write summary of data to output file.
+ * Due: 4/20/2026
+ * Platform/compiler: Eclipse
+ * I pledge that I have completed the programming 
+ * assignment independently. I have not copied the code 
+ * from a student or any source. I have not given my code 
+ * to any student.
+   Print your Name here: Laurie Spector
+*/
+
+import java.util.Scanner;
+import java.io.*;
+
+public class SalesAppDriver {
+	public static void main(String[] args) throws IOException {
+		Scanner keyboard = new Scanner(System.in);
+		
+		// Prompt user for input and output file names
+		System.out.print("Please enter the input file name: ");
+		String inputFile = keyboard.nextLine();
+		System.out.print("Please enter the output file name: ");
+		String outputFile = keyboard.nextLine();
+		
+		// Creates array of sales data using input file
+		double[][] salesData = SalesFileIO.readSalesData(inputFile);
+		
+		// Writes summary of sales data to output file
+		SalesFileIO.writeSummary(outputFile, salesData);
+		
+		// Prints calculations to console
+		System.out.printf("Total sales: %.2f", SalesDataUtility.getTotal(salesData));		
+		System.out.printf("\nAverage sale: %.2f", SalesDataUtility.getAverage(salesData));
+		for (int row = 0; row < salesData.length; row++) {
+			System.out.printf("\nRow %d total: %.2f", row, SalesDataUtility.getRowTotal(salesData, row));
+		}
+		int columns = 0;
+		for (int i = 0; i < salesData.length; i++) {
+			if (salesData[i].length > columns)
+				columns = salesData[i].length;
+		}
+		for (int col = 0; col < columns; col++) {
+			System.out.printf("\nColumn %d total: %.2f", col, SalesDataUtility.getColumnTotal(salesData, col));
+		}
+		for (int row = 0; row < salesData.length; row++) {
+			System.out.printf("\nHighest value for Row %d: %.2f", row, SalesDataUtility.getHighestInRow(salesData, row));
+		}
+		for (int row = 0; row < salesData.length; row++) {
+			System.out.printf("\nLowest value for Row %d: %.2f", row, SalesDataUtility.getLowestInRow(salesData, row));
+		}
+		System.out.printf("\nHighest value in array: %.2f", SalesDataUtility.getHighestInArray(salesData));
+		System.out.printf("\nLowest value in array: %.2f", SalesDataUtility.getLowestInArray(salesData));
+	}
+}
