@@ -1,0 +1,142 @@
+/*
+ * Class: CMSC203 30295
+ * Instructor: Dr. Grinberg
+ * Description: This class makes various calculations (totals, average, etc.) on the array of sales data imported from salesdata.txt.
+ * Due: 4/20/2026
+ * Platform/compiler: Eclipse
+ * I pledge that I have completed the programming 
+ * assignment independently. I have not copied the code 
+ * from a student or any source. I have not given my code 
+ * to any student.
+   Print your Name here: Laurie Spector
+*/
+
+public class SalesDataUtility {
+	
+	/**
+	 * Calculates the total of all sales in array.
+	 * @param data Array of sales data.
+	 * @return The total of all sales in array.
+	 */
+	public static double getTotal(double[][] data) {
+		double total = 0;
+		
+		for (int i = 0; i < data.length; i++) {
+			for (int j = 0; j < data[i].length; j++) {
+				total += data[i][j];
+			}
+		}
+		
+		return total;
+	}
+	
+	/**
+	 * Calculates the average sales amount of each department's day.
+	 * @param data Array of sales data.
+	 * @return The average sales amount of each department's day.
+	 */
+	public static double getAverage(double[][] data) {
+		double total = getTotal(data);
+		int numOfSales = 0;
+		
+		for (int i = 0; i < data.length; i++) {
+			for (int j = 0; j < data[i].length; j++) {
+				numOfSales++;
+			}
+		}
+		
+		double average = total / numOfSales;		
+		return average;
+	}
+	
+	/**
+	 * Calculates the total sales for the given row (department).
+	 * @param data Array of sales data.
+	 * @param row Row within the sales data array.
+	 * @return Total sales for the given row (department).
+	 */
+	public static double getRowTotal(double[][] data, int row) {
+		double total = 0;
+		for (int i = 0; i < data[row].length; i++) {
+			total += data[row][i];
+		}
+		return total;		
+	}
+	
+	/**
+	 * Calculates the total sales for the given column (day).
+	 * @param data Array of sales data.
+	 * @param col Column within the sales data array.
+	 * @return Total sales for the given column (day).
+	 */
+	public static double getColumnTotal(double[][] data, int col) {
+		double total = 0;
+		for (int i = 0; i < data.length; i++) {
+			if (col < data[i].length)
+				total += data[i][col];
+		}
+		return total;
+	}
+	
+	/**
+	 * Calculates the highest sales amount for the given row (department).
+	 * @param data Array of sales data.
+	 * @param row Row within the sales data array.
+	 * @return The sales amount for the most profitable day of a given department.
+	 */
+	public static double getHighestInRow(double[][] data, int row) {
+		double highest = data[row][0];
+		for (int i = 1; i < data[row].length; i++) {
+			if (data[row][i] > highest)
+				highest = data[row][i];
+		}
+		return highest;
+	}
+	
+	/**
+	 * Calculates the lowest sales amount for the given row (department).
+	 * @param data Array of sales data.
+	 * @param row Row within the sales data array.
+	 * @return The sales amount for the least profitable day of a given department.
+	 */
+	public static double getLowestInRow(double[][] data, int row) {
+		double lowest = data[row][0];
+		for (int i = 1; i < data[row].length; i++) {
+			if (data[row][i] < lowest)
+				lowest = data[row][i];
+		}
+		return lowest;
+	}
+	
+	/**
+	 * Calculates the highest sales amount in the entire array.
+	 * @param data Array of sales data.
+	 * @return The sales amount for the most profitable day of any department.
+	 */
+	public static double getHighestInArray(double[][] data) {
+		double highest = data[0][0];
+		for (int i = 0; i < data.length; i++) {
+			for (int j = 0; j < data[i].length; j++) {
+				if (data[i][j] > highest)
+					highest = data[i][j];
+			}
+		}
+		return highest;
+	}
+	
+	/**
+	 * Calculates the lowest sales amount in the entire array.
+	 * @param data Array of sales data.
+	 * @return The sales amount for the least profitable day of any department.
+	 */
+	public static double getLowestInArray(double[][] data) {
+		double lowest = data[0][0];
+		for (int i = 0; i < data.length; i++) {
+			for (int j = 0; j < data[i].length; j++) {
+				if (data[i][j] < lowest)
+					lowest = data[i][j];
+			}
+		}
+		return lowest;
+	}
+}
