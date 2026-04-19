@@ -1,0 +1,138 @@
+/*
+ * Class: CMSC203 30295
+ * Instructor: Dr. Grinberg
+ * Description: This class contains the program's GUI driver to get input/output filenames from user, show user summary of data and write summary of data to output file.
+ * Due: 4/20/2026
+ * Platform/compiler: Eclipse
+ * I pledge that I have completed the programming 
+ * assignment independently. I have not copied the code 
+ * from a student or any source. I have not given my code 
+ * to any student.
+   Print your Name here: Laurie Spector
+*/
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.geometry.Insets;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.event.*;
+import java.io.*;
+
+public class SalesAppFX extends Application {
+	private Label labelInputFile, labelOutputFile;
+	private TextField tfInputFile, tfOutputFile;
+	private HBox hbInputFile, hbOutputFile, hbButtons;
+	private VBox root;
+	private Button buttonLoadProcess, buttonSaveSummary;
+	private TextArea textarea;
+	
+	public static void main(String[] args) {
+		launch(args);
+	}
+	
+	@Override
+	public void start(Stage stage) throws Exception {
+		labelInputFile = new Label("Input File:     ");
+		tfInputFile = new TextField();
+		hbInputFile = new HBox(labelInputFile, tfInputFile);
+		labelOutputFile = new Label("Output File:  ");
+		tfOutputFile = new TextField();
+		hbOutputFile = new HBox(labelOutputFile, tfOutputFile);
+		buttonLoadProcess = new Button("Load & Process");
+		buttonSaveSummary = new Button("Save Summary");
+		hbButtons = new HBox(10, buttonLoadProcess, buttonSaveSummary);
+		textarea = new TextArea();
+		textarea.setEditable(false);
+		
+		root = new VBox(15, hbInputFile, hbOutputFile, hbButtons, textarea);
+		root.setPadding(new Insets(10));
+		
+		buttonLoadProcess.setOnAction(new LoadProcessClickHandler());
+		buttonSaveSummary.setOnAction(new SaveSummaryClickHandler());
+		
+		stage.setScene(new Scene(root, 600, 400));
+		stage.setTitle("Store Sales Data Processor");
+		stage.show();
+		
+	}
+	
+	/*
+	 * Event handler class for Load & Process button
+	 */
+	class LoadProcessClickHandler implements EventHandler<ActionEvent> {
+		@Override
+		public void handle(ActionEvent event)
+		{
+			String inputFile = tfInputFile.getText();
+			double[][] salesData;
+			
+			// Make sure input filenames is provided
+			if (tfInputFile.getText().isBlank()) {
+				textarea.appendText("Please enter input file name.\n");
+				return;
+			}
+			
+			// Get array of sales data and display to user. Using exceptions for input file not existing and other general IO errors.
+			try {
+				salesData = SalesFileIO.readSalesData(inputFile);
+				
+				textarea.appendText(String.format("Total sales: %.2f", SalesDataUtility.getTotal(salesData)));		
+				textarea.appendText(String.format("\nAverage sale: %.2f", SalesDataUtility.getAverage(salesData)));
+				for (int row = 0; row < salesData.length; row++) {
+					textarea.appendText(String.format("\nRow %d total: %.2f", row, SalesDataUtility.getRowTotal(salesData, row)));
+				}
+				int columns = 0;
+				for (int i = 0; i < salesData.length; i++) {
+					if (salesData[i].length > columns)
+						columns = salesData[i].length;
+				}
+				for (int col = 0; col < columns; col++) {
+					textarea.appendText(String.format("\nColumn %d total: %.2f", col, SalesDataUtility.getColumnTotal(salesData, col)));
+				}
+				for (int row = 0; row < salesData.length; row++) {
+					textarea.appendText(String.format("\nHighest value for Row %d: %.2f", row, SalesDataUtility.getHighestInRow(salesData, row)));
+				}
+				for (int row = 0; row < salesData.length; row++) {
+					textarea.appendText(String.format("\nLowest value for Row %d: %.2f", row, SalesDataUtility.getLowestInRow(salesData, row)));
+				}
+				textarea.appendText(String.format("\nHighest value in array: %.2f", SalesDataUtility.getHighestInArray(salesData)));
+				textarea.appendText(String.format("\nLowest value in array: %.2f\n", SalesDataUtility.getLowestInArray(salesData)));
+			} catch (FileNotFoundException e) {
+				textarea.appendText("Error: File \"" + inputFile + "\" not found\n");
+			} catch (IOException e) {
+				textarea.appendText("Error: " + e.getMessage() + "\n");
+			}
+		}
+	}
+	
+	/*
+	 * Event handler class for Save Summary button
+	 */
+	class SaveSummaryClickHandler implements EventHandler<ActionEvent> {
+		@Override
+		public void handle(ActionEvent event)
+		{
+			String inputFile = tfInputFile.getText();
+			String outputFile = tfOutputFile.getText();
+			double[][] salesData;
+			
+			// Make sure input and output filenames are provided
+			if (tfInputFile.getText().isBlank() || tfOutputFile.getText().isBlank()) {
+				textarea.appendText("Please enter input and output file names.\n");
+				return;
+			}
+			
+			// Get array of sales data and write to output file. Using exceptions for input file not existing and other general IO errors.
+			try {
+				salesData = SalesFileIO.readSalesData(inputFile);
+				SalesFileIO.writeSummary(outputFile, salesData);
+			} catch (FileNotFoundException e) {
+				textarea.appendText("Error: File \"" + inputFile + "\" not found\n");
+			} catch (IOException e) {
+				textarea.appendText("Error: " + e.getMessage() + "\n");
+			}
+		}
+	}
+}
