@@ -1,0 +1,108 @@
+/*
+ * Class: CMSC203 30295
+ * Instructor: Dr. Grinberg
+ * Description: This class performs the file IO. It reads an input file and returns an array with the data, and also write a summary of data to an output file.
+ * Due: 4/20/2026
+ * Platform/compiler: Eclipse
+ * I pledge that I have completed the programming 
+ * assignment independently. I have not copied the code 
+ * from a student or any source. I have not given my code 
+ * to any student.
+   Print your Name here: Laurie Spector
+*/
+
+import java.io.*;
+import java.util.Scanner;
+
+public class SalesFileIO {
+	
+	/**
+	 * Reads each line, splits on spaces, converts tokens to double, and builds a ragged array.
+	 * @param filename Input file name
+	 * @return Double array of sales data
+	 */
+	public static double[][] readSalesData(String filename) throws IOException {
+		int departments = 0;
+		File file = new File(filename);
+		Scanner inputFile = new Scanner(file);
+		
+		// First pass through input file to find number of lines (departments)
+		while (inputFile.hasNextLine())
+		{
+			String line = inputFile.nextLine();
+			if (!line.isBlank())
+				departments++;
+		}
+		
+		inputFile.close();
+		
+		// Create array of sales data with corresponding number of rows
+		double[][] arrayOfSales = new double[departments][];
+		
+		// Second pass through input file to find number of tokens (days) per line (department), then populate with data
+		Scanner inputFile2 = new Scanner(file);
+		for (int i = 0; i < departments; i++) {
+			String line = inputFile2.nextLine();
+			String[] tokens = line.split(" ");
+			arrayOfSales[i] = new double[tokens.length];
+			for (int j = 0; j < tokens.length; j++) {
+				arrayOfSales[i][j] = Double.parseDouble(tokens[j]);
+			}
+		}
+		
+		inputFile2.close();
+		return arrayOfSales;
+	}
+	
+	/**
+	 * Writes totals, averages, highest/lowest values to an output file.
+	 * @param filename Output filename.
+	 * @param data Array of sales data.
+	 */
+	public static void writeSummary(String filename, double[][] data) throws IOException {
+		PrintWriter outputFile = new PrintWriter(filename);
+		
+		// Print total sales
+		outputFile.printf("Total sales: %.2f", SalesDataUtility.getTotal(data));
+		
+		// Print average sale
+		outputFile.printf("\nAverage sale: %.2f", SalesDataUtility.getAverage(data));
+		
+		// Print row totals
+		for (int row = 0; row < data.length; row++) {
+			outputFile.printf("\nRow %d total: %.2f", row, SalesDataUtility.getRowTotal(data, row));
+		}
+		
+		// Find number of columns
+		int columns = 0;
+		for (int i = 0; i < data.length; i++) {
+			if (data[i].length > columns)
+				columns = data[i].length;
+		}
+		
+		// Print column totals
+		for (int col = 0; col < columns; col++) {
+			outputFile.printf("\nColumn %d total: %.2f", col, SalesDataUtility.getColumnTotal(data, col));
+		}
+		
+		// Print highest amount for each row
+		for (int row = 0; row < data.length; row++) {
+			outputFile.printf("\nHighest value for Row %d: %.2f", row, SalesDataUtility.getHighestInRow(data, row));
+		}
+		
+		// Print lowest amount for each row
+		for (int row = 0; row < data.length; row++) {
+			outputFile.printf("\nLowest value for Row %d: %.2f", row, SalesDataUtility.getLowestInRow(data, row));
+		}
+		
+		// Print highest amount for entire array
+		outputFile.printf("\nHighest value in array: %.2f", SalesDataUtility.getHighestInArray(data));
+		
+		// Print lowest amount for entire array
+		outputFile.printf("\nLowest value in array: %.2f", SalesDataUtility.getLowestInArray(data));
+		
+		outputFile.close();
+		
+	}
+	
+}
