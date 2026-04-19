@@ -1,0 +1,92 @@
+/*
+ * Class: CMSC203 30295
+ * Instructor: Dr. Grinberg
+ * Description: This class contains the JUnit tests for the SalesDataUtility class.
+ * Due: 4/20/2026
+ * Platform/compiler: Eclipse
+ * I pledge that I have completed the programming 
+ * assignment independently. I have not copied the code 
+ * from a student or any source. I have not given my code 
+ * to any student.
+   Print your Name here: Laurie Spector
+*/
+
+import static org.junit.Assert.*;
+import org.junit.Test;
+
+public class SalesDataUtilityTest {
+	
+	@Test
+	public void testGetTotal() {
+		double[][] data = { {27.90, 890.75, 182.34},
+							{19.32, 756.24},
+							{240.83, 65.40, 567.98, 312.11} };
+		assertEquals(3062.87, SalesDataUtility.getTotal(data), 0.001);
+	}
+	
+	@Test
+	public void testGetAverage() {
+		double[][] data = { {27.90, 890.75, 182.34},
+							{19.32, 756.24},
+							{240.83, 65.40, 567.98, 312.11} };
+		assertEquals(3062.87/9, SalesDataUtility.getAverage(data), 0.001);
+	}
+	
+	@Test
+	public void testGetRowTotal() {
+		double[][] data = { {27.90, 890.75, 182.34},
+							{19.32, 756.24},
+							{240.83, 65.40, 567.98, 312.11} };
+		assertEquals(1100.99, SalesDataUtility.getRowTotal(data, 0), 0.001);
+		assertEquals(775.56, SalesDataUtility.getRowTotal(data, 1), 0.001);
+		assertEquals(1186.32, SalesDataUtility.getRowTotal(data, 2), 0.001);
+	}
+	
+	@Test
+	public void testGetColumnTotal() {
+		double[][] data = { {27.90, 890.75, 182.34},
+							{19.32, 756.24},
+							{240.83, 65.40, 567.98, 312.11} };
+		assertEquals(288.05, SalesDataUtility.getColumnTotal(data, 0), 0.001);
+		assertEquals(1712.39, SalesDataUtility.getColumnTotal(data, 1), 0.001);
+		assertEquals(750.32, SalesDataUtility.getColumnTotal(data, 2), 0.001);
+		assertEquals(312.11, SalesDataUtility.getColumnTotal(data, 3), 0.001);
+	}
+	
+	@Test
+	public void testGetHighestInRow() {
+		double[][] data = { {27.90, 890.75, 182.34},
+							{19.32, 756.24},
+							{240.83, 65.40, 567.98, 312.11} };
+		assertEquals(890.75, SalesDataUtility.getHighestInRow(data, 0), 0.001);
+		assertEquals(756.24, SalesDataUtility.getHighestInRow(data, 1), 0.001);
+		assertEquals(567.98, SalesDataUtility.getHighestInRow(data, 2), 0.001);
+	}
+	
+	@Test
+	public void testGetLowestInRow() {
+		double[][] data = { {27.90, 890.75, 182.34},
+							{19.32, 756.24},
+							{240.83, 65.40, 567.98, 312.11} };
+		assertEquals(27.90, SalesDataUtility.getLowestInRow(data, 0), 0.001);
+		assertEquals(19.32, SalesDataUtility.getLowestInRow(data, 1), 0.001);
+		assertEquals(65.40, SalesDataUtility.getLowestInRow(data, 2), 0.001);
+	}
+	
+	@Test
+	public void testGetHighestInArray() {
+		double[][] data = { {27.90, 890.75, 182.34},
+							{19.32, 756.24},
+							{240.83, 65.40, 567.98, 312.11} };
+		assertEquals(890.75, SalesDataUtility.getHighestInArray(data), 0.001);
+	}
+	
+	@Test
+	public void testGetLowestInArray() {
+		double[][] data = { {27.90, 890.75, 182.34},
+							{19.32, 756.24},
+							{240.83, 65.40, 567.98, 312.11} };
+		assertEquals(19.32, SalesDataUtility.getLowestInArray(data), 0.001);
+	}
+
+}
