@@ -1,0 +1,24 @@
+/*
+ * Class: CMSC203 30295
+ * Instructor: Dr. Grinberg
+ * Description: This is a subclass of the Person superclass. Its members characterize an acrobat.
+ * Due: 5/4/2026
+ * Platform/compiler: Eclipse
+ * I pledge that I have completed the programming  
+ * assignment independently. I have not copied the code 
+ * from a student or any source. I have not given my code 
+ * to any student.
+   Print your Name here: Laurie Spector
+*/
+
+public class Acrobatic extends Person {
+
+    public Acrobatic(String name, int age, int yearsWorked, String job, String imagePath) {
+    	super(name, age, yearsWorked, job, imagePath);
+    }
+
+    @Override
+    public String toString() {
+        return "Acrobatic - " + super.toString();
+    }
+}
