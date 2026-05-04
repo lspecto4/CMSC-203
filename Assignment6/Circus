@@ -1,0 +1,165 @@
+/*
+ * Class: CMSC203 30295
+ * Instructor: Dr. Grinberg
+ * Description: Utility class for the GUI Driver.
+ * Due: 5/4/2026
+ * Platform/compiler: Eclipse
+ * I pledge that I have completed the programming  
+ * assignment independently. I have not copied the code 
+ * from a student or any source. I have not given my code 
+ * to any student.
+   Print your Name here: Laurie Spector
+*/
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Circus {
+    private List<Animal> animals;
+    private List<Person> persons;
+    private List<Building> buildings;
+
+    public Circus() {
+        animals = new ArrayList<>();
+        persons = new ArrayList<>();
+        buildings = new ArrayList<>();
+    }
+
+    /**
+     * Animal ArrayList getter
+     * @return animals ArrayList
+     */
+    public List<Animal> getAnimals() {
+    	return animals;
+    }
+    
+    /**
+     * Person ArrayList getter
+     * @return persons ArrayList
+     */
+    public List<Person> getPersons() {
+    	return persons;
+    }
+    
+    /**
+     * Building ArrayList getter
+     * @return buildings ArrayList
+     */
+    public List<Building> getBuildings() {
+    	return buildings;
+    }
+
+    /**
+     * Add Building to buildings ArrayList
+     * @param b Building object
+     */
+    public void addBuilding(Building b) {
+    	buildings.add(b);
+    }
+    
+    /**
+     * Displays all Buldings in buildings ArrayList
+     */
+    public void displayAllBuildings() {
+    	String str = "";
+    	for (Building b : buildings)
+    		str += b.toString();
+    	System.out.println(str);
+    }
+
+    /**
+     * Add Person to persons ArrayList
+     * @param p Person object
+     */
+    public void addPerson(Person p) {
+    	persons.add(p);
+    }
+
+    /**
+     * Displays all Persons in persons ArrayList
+     */
+    public void displayAllPersons() {
+    	String str = "";
+    	for (Person p : persons)
+    		str += p.toString();
+    	System.out.println(str);
+    }
+
+    /**
+     * Add Animal to animals ArrayList
+     * @param a Animal object
+     */
+    public void addAnimal(Animal a) {
+    	animals.add(a);
+    }
+
+    /**
+     * Displays all Animals in animals ArrayList
+     */
+    public void displayAllAnimals() {
+    	String str = "";
+    	for (Animal a : animals)
+    		str += a.toString() + "\n";
+    	System.out.println(str);
+    }
+
+    /**
+     * Selection sort to sort animals by age
+     */
+    public void sortAnimalsByAge() {
+    	int startScan, index, minIndex;
+    	Animal minAge;
+    	
+    	for (startScan = 0; startScan < (animals.size()-1); startScan++) {
+    		minIndex = startScan;
+    		minAge = animals.get(startScan);
+    		
+    		for (index = startScan + 1; index < animals.size(); index++) {
+    			if (animals.get(index).getAge() < minAge.getAge()) {
+    				minAge = animals.get(index);
+    				minIndex = index;
+    			}
+    		}
+    		animals.set(minIndex, animals.get(startScan));
+    		animals.set(startScan, minAge);
+    	}
+    }
+    
+    /**
+     * Selection sort to sort animals by name
+     */
+    public void sortAnimalsByName() {
+    	int startScan, index, minIndex;
+    	Animal minName;
+    	
+    	for (startScan = 0; startScan < (animals.size()-1); startScan++) {
+    		minIndex = startScan;
+    		minName = animals.get(startScan);
+    		
+    		for (index = startScan + 1; index < animals.size(); index++) {
+    			if (animals.get(index).getName().compareToIgnoreCase(minName.getName()) < 0) {
+    				minName = animals.get(index);
+    				minIndex = index;
+    			}
+    		}
+    		animals.set(minIndex, animals.get(startScan));
+    		animals.set(startScan, minName);
+    	}
+    }
+
+    /**
+     * Search for an animal by name
+     * @param name Animal's name
+     * @return Animal's details if animal is found. Otherwise, an alert that animal wasn't found.
+     */
+    public String searchAnimalByName(String name) {
+    	for (Animal a : animals) {
+    		if (a.getName().equalsIgnoreCase(name)) {
+    			return "Animal Details:\n-----------\n" + a;
+    		}
+    	}
+    	return "No animal found with the name " + name + "\n";
+    }
+
+}
