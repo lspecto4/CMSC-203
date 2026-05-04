@@ -1,0 +1,87 @@
+/*
+ * Class: CMSC203 30295
+ * Instructor: Dr. Grinberg
+ * Description: JUnit test class for Lion class.
+ * Due: 5/4/2026
+ * Platform/compiler: Eclipse
+ * I pledge that I have completed the programming  
+ * assignment independently. I have not copied the code 
+ * from a student or any source. I have not given my code 
+ * to any student.
+   Print your Name here: Laurie Spector
+*/
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+public class LionTestStudent {
+
+    private Lion lion;
+    private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+
+    @BeforeEach
+    public void setUp() {
+        lion = new Lion("Simba", 10, "Panthera leo", "Gold", "images/lion.png");
+        System.setOut(new PrintStream(outputStream));
+    }
+
+    @AfterEach
+    public void tearDown() {
+        System.setOut(originalOut);
+        outputStream.reset();
+    }
+
+    // ===== GETTER TESTS =====
+    @Test
+    public void testGetName() {
+        assertEquals("Simba", lion.getName());
+    }
+
+    @Test
+    public void testGetAge() {
+        assertEquals(10, lion.getAge());
+    }
+
+    @Test
+    public void testGetSpecies() {
+        assertEquals("Panthera leo", lion.getSpecies());
+    }
+
+    @Test
+    public void testGetColor() {
+        assertEquals("Gold", lion.getColor());
+    }
+
+    @Test
+    public void testGetImagePath() {
+        assertEquals("images/lion.png", lion.getImagePath());
+    }
+
+    // ===== toString TEST =====
+    @Test
+    public void testToString() {
+        String expected = "Lion [Name: Simba, Age: 10, Species: Panthera leo, Color: Gold]";
+        assertEquals(expected, lion.toString());
+    }
+
+    // ===== makeSound TEST =====
+    @Test
+    public void testMakeSound() {
+        lion.makeSound();
+        assertTrue(outputStream.toString().contains("Roar!"));
+    }
+
+    // ===== move TEST =====
+    @Test
+    public void testMove() {
+        lion.move();
+        assertTrue(outputStream.toString().contains("Pounces."));
+    }
+}
