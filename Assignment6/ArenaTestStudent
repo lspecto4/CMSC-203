@@ -1,0 +1,94 @@
+/*
+ * Class: CMSC203 30295
+ * Instructor: Dr. Grinberg
+ * Description: JUnit test class for Arena class.
+ * Due: 5/4/2026
+ * Platform/compiler: Eclipse
+ * I pledge that I have completed the programming  
+ * assignment independently. I have not copied the code 
+ * from a student or any source. I have not given my code 
+ * to any student.
+   Print your Name here: Laurie Spector
+*/
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+public class ArenaTestStudent {
+
+    private Arena arena;
+    private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+
+    @BeforeEach
+    public void setUp() {
+        arena = new Arena("White", 150.0, 200.0, "images/arena.png");
+        System.setOut(new PrintStream(outputStream));
+    }
+
+    @AfterEach
+    public void tearDown() {
+        System.setOut(originalOut);
+        outputStream.reset();
+    }
+
+    // ===== GETTER TESTS =====
+    @Test
+    public void testGetColor() {
+        assertEquals("White", arena.getColor());
+    }
+
+    @Test
+    public void testGetLength() {
+        assertEquals(150.0, arena.getLength());
+    }
+
+    @Test
+    public void testGetWidth() {
+        assertEquals(200.0, arena.getWidth());
+    }
+    
+    @Test
+    public void testGetBuildingType() {
+        assertEquals("Arena", arena.getBuildingType());
+    }
+
+    @Test
+    public void testGetImagePath() {
+        assertEquals("images/arena.png", arena.getImagePath());
+    }
+    
+    // ===== SETTER TESTS =====
+    @Test
+    public void testSetColor() {
+    	arena.setColor("Brown");
+    	assertEquals("Brown", arena.getColor());
+    }
+    
+    @Test
+    public void testSetSize() {
+    	arena.setSize(350.0, 400.0);
+    	assertEquals(350.0, arena.getLength());
+    	assertEquals(400.0, arena.getWidth());
+    }
+    
+    @Test
+    public void setBuildingType() {
+    	arena.setBuildingType("House");
+    	assertEquals("House", arena.getBuildingType());
+    }
+
+    // ===== toString TEST =====
+    @Test
+    public void testToString() {
+        String expected = "Building Type: Arena \nColor: White \nSize: 150.0 x 200.0\n";
+        assertEquals(expected, arena.toString());
+    }
+
+}
