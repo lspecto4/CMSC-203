@@ -1,0 +1,74 @@
+/*
+ * Class: CMSC203 30295
+ * Instructor: Dr. Grinberg
+ * Description: JUnit test class for Acrobatic class.
+ * Due: 5/4/2026
+ * Platform/compiler: Eclipse
+ * I pledge that I have completed the programming  
+ * assignment independently. I have not copied the code 
+ * from a student or any source. I have not given my code 
+ * to any student.
+   Print your Name here: Laurie Spector
+*/
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+public class AcrobaticTestStudent {
+
+    private Acrobatic acrobat;
+    private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+
+    @BeforeEach
+    public void setUp() {
+        acrobat = new Acrobatic("Sarah", 29, 5, "Acrobat", "images/acrobat.png");
+        System.setOut(new PrintStream(outputStream));
+    }
+
+    @AfterEach
+    public void tearDown() {
+        System.setOut(originalOut);
+        outputStream.reset();
+    }
+
+    // ===== GETTER TESTS =====
+    @Test
+    public void testGetName() {
+        assertEquals("Sarah", acrobat.getName());
+    }
+
+    @Test
+    public void testGetAge() {
+        assertEquals(29, acrobat.getAge());
+    }
+
+    @Test
+    public void testGetYearsWorked() {
+        assertEquals(5, acrobat.getYearsWorked());
+    }
+
+    @Test
+    public void testJob() {
+        assertEquals("Acrobat", acrobat.getJob());
+    }
+
+    @Test
+    public void testGetImagePath() {
+        assertEquals("images/acrobat.png", acrobat.getImagePath());
+    }
+
+    // ===== toString TEST =====
+    @Test
+    public void testToString() {
+        String expected = "Acrobatic - Name: Sarah, Age: 29, Job: Acrobat, Years Worked: 5\n";
+        assertEquals(expected, acrobat.toString());
+    }
+
+}
